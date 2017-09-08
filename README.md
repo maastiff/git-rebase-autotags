@@ -59,3 +59,9 @@ in your local or global configuration.
 git config [--global] --add rewrite.autotags true
 ```
 
+It is recommended to enable git `push.followTags` feature which will prevent you to have to separately call `git push --tags` to push 
+your tags.
+
+```shell
+git config --global push.followTags true
+```
