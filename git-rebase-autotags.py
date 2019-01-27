@@ -27,8 +27,27 @@ try:
 except subprocess.CalledProcessError:
 	autotags = False
 
+try:
+	stdoutput = subprocess.check_output(['git', 'config', '--get', '--bool', 'rewrite.autotags.warnings'])
+	warnings = stdoutput.splitlines()[0].upper() == 'TRUE'
+except subprocess.CalledProcessError:
+	warnings = True
+
+if not autotags and warnings:
+	print "\033[33mWARNING: rewrite.autotags hook configure in this repository has not been activated\033[0m"
+	print "configure rewrite.autotags by running the following commands in the repository"
+	print "    git config --local --add rewrite.autotags.enabled true"
+	print "    git config --local push.followTags true"
+	print ""
+	print "to disable rewrite.autotags warning, apply the following configuration"
+	print "    git config --local --add rewrite.autotags.warnings false"
+	print ""
+
+
+
 if autotags:
-	print "rewrite.autotags activated, tags will be moved between commits during %(cmd)s" % {"cmd": rewrite_cmd}
+	print "\033[33mWARNING: rewrite.autotags activated, tags will be moved between commits during %(cmd)s\033[0m" % {"cmd": rewrite_cmd}
+	print ""
 
 	for (old, new) in commits:
 		stdoutput = subprocess.check_output(['git', 'tag', '--points-at', old])
