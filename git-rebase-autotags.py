@@ -19,10 +19,10 @@ import subprocess
 
 args = sys.stdin.read().split()
 commits = zip(*[iter(args)]*2)
- 
+rewrite_cmd = sys.argv[1]
+
 try:
-	rewrite_cmd = sys.argv[1]
-	stdoutput = subprocess.check_output(['git', 'config', '--get', '--bool', 'rewrite.autotags'])
+	stdoutput = subprocess.check_output(['git', 'config', '--get', '--bool', 'rewrite.autotags.enabled'])
 	autotags = stdoutput.splitlines()[0].upper() == 'TRUE'
 except subprocess.CalledProcessError:
 	autotags = False

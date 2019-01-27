@@ -52,11 +52,11 @@ git init
 CONFIGURE
 ---------
 
-The autotags functionnality is disabled by default. You can easily enable it adding `rewrite.autotags = true` 
+The autotags functionnality is disabled by default. You can easily enable it adding `rewrite.autotags.enabled = true` 
 in your local or global configuration.
 
 ```shell
-git config [--global] --add rewrite.autotags true
+git config [--global] --add rewrite.autotags.enabled true
 ```
 
 It is recommended to enable git `push.followTags` feature which will prevent you to have to separately call `git push --tags` to push 
